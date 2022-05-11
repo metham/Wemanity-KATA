@@ -1,2 +1,5 @@
 # Wemanity-KATA
-Minesweeper KATA for Wemanity
+
+Repository for WEMANITY KATAS 
+
+Mostly done with PHP-Symfony
