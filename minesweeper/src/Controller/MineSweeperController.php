@@ -24,10 +24,14 @@ class MineSweeperController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $minefields = $request->request->get('minefields');
-        if (!$minefields) {
-            $body = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
-            $minefields = $body["minefields"];
+        $body = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        if(!$body) {
+            return $this->json(["No field given"], 400);
+        }
+        $minefields = $body["minefields"];
+
+        if(!$minefields) {
+            return $this->json(["No field given"], 400);
         }
 
         $output = $this->mineFieldService->solveMinefields($minefields);

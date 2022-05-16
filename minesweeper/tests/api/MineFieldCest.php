@@ -27,7 +27,7 @@ class MineFieldCest
             "0 0"
         ];
 
-        $I->sendPost(
+        $I->sendPostAsJson(
             '/minefield',
             [
                 'minefields' => $minefield,
@@ -54,7 +54,7 @@ class MineFieldCest
             "0 0"
         ];
 
-        $I->sendPost(
+        $I->sendPostAsJson(
             '/minefield',
             [
                 'minefields' => $minefield,
@@ -68,13 +68,9 @@ class MineFieldCest
 
     public function postNoMineFieldsAndFail(ApiTester $I): void
     {
-        $minefield = [];
-
-        $I->sendPost(
+        $I->sendPostAsJson(
             '/minefield',
-            [
-                'minefields' => $minefield,
-            ]
+            []
         );
 
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);

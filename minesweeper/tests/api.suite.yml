@@ -1,4 +1,6 @@
 actor: ApiTester
+step_decorators:
+  - \Codeception\Step\AsJson
 modules:
   enabled:
     - Symfony:
