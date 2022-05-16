@@ -20,10 +20,16 @@ class MineSweeperController extends AbstractController
 
     /**
      * @Route("/minefield", methods={"POST"})
+     * @throws \JsonException
      */
     public function index(Request $request): Response
     {
         $minefields = $request->request->get('minefields');
+        if (!$minefields) {
+            $body = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+            $minefields = $body["minefields"];
+        }
+
         $output = $this->mineFieldService->solveMinefields($minefields);
 
         return $this->json([
