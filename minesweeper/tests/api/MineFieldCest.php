@@ -9,13 +9,6 @@ use Faker\Generator;
 
 class MineFieldCest
 {
-    private Generator $faker;
-
-    public function _before(ApiTester $I): void
-    {
-        $this->faker = Factory::create();
-    }
-
     public function postMineFieldSuccessfully(ApiTester $I): void
     {
         $minefield = [
