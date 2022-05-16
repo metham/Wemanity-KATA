@@ -38,4 +38,46 @@ class MineFieldCest
         $I->seeResponseIsJson();
         $I->seeResponseContains('[["Field #1:","*100","2210","1*10","1110"]]');
     }
+
+    public function postMultipleMineFieldsSuccessfully(ApiTester $I): void
+    {
+        $minefield = [
+            "4 4",
+            "*...",
+            "....",
+            ".*..",
+            "....",
+            "3 5",
+            "**...",
+            ".....",
+            ".*...",
+            "0 0"
+        ];
+
+        $I->sendPost(
+            '/minefield',
+            [
+                'minefields' => $minefield,
+            ]
+        );
+
+        $I->seeResponseCodeIs(HttpCode::ACCEPTED);
+        $I->seeResponseIsJson();
+        $I->seeResponseEquals('[["Field #1:","*100","2210","1*10","1110","Field #2:","**100","33200","1*100"]]');
+    }
+
+    public function postNoMineFieldsAndFail(ApiTester $I): void
+    {
+        $minefield = [];
+
+        $I->sendPost(
+            '/minefield',
+            [
+                'minefields' => $minefield,
+            ]
+        );
+
+        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+        $I->seeResponseIsJson();
+    }
 }
