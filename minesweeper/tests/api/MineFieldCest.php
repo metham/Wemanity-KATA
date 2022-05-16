@@ -18,7 +18,14 @@ class MineFieldCest
 
     public function postMineFieldSuccessfully(ApiTester $I): void
     {
-        $minefield = "4 4\n*...\n....\n.*..\n....\n0 0";
+        $minefield = [
+            "4 4",
+            "*...",
+            "....",
+            ".*..",
+            "....",
+            "0 0"
+        ];
 
         $I->sendPost(
             '/minefield',
@@ -29,5 +36,6 @@ class MineFieldCest
 
         $I->seeResponseCodeIs(HttpCode::ACCEPTED);
         $I->seeResponseIsJson();
+        $I->seeResponseContains('[["Field #1:","*100","2210","1*10","1110"]]');
     }
 }
